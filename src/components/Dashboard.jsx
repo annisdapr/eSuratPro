@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderToolbar from './HeaderToolbar';
 
 const documents = [
   {
@@ -34,31 +35,9 @@ const documents = [
 const Dashboard = () => {
   return (
     <div className="flex h-screen">
-
-      {/* Main Content */}
       <main className="flex-1 p-6 bg-gray-50 overflow-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">Seluruh Dokumen</h2>
-          <div className="flex space-x-4 items-center">
-            <div className="bg-white flex items-center rounded-full px-4 py-2 shadow-sm">
-              <input
-                type="text"
-                placeholder="Cari..."
-                className="outline-none bg-transparent text-sm"
-              />
-              <i className="fas fa-search ml-2 text-gray-500"></i>
-            </div>
-            <button className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
-              <i className="fas fa-filter"></i>
-            </button>
-            <button className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
-              <i className="fas fa-plus"></i>
-            </button>
-          </div>
-        </div>
+        <HeaderToolbar title="Seluruh Dokumen" />
 
-        {/* Table */}
         <div className="bg-white rounded-lg shadow-sm overflow-x-auto">
           <table className="min-w-full table-auto text-sm">
             <thead className="border-b text-gray-600">
