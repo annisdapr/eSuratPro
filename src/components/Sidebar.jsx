@@ -66,8 +66,7 @@ export const Sidebar = ({ sidebarOpen }) => {
               text="Pengaturan"
               active={pathname === "/pengaturan"}
               sidebarOpen={sidebarOpen}
-              onClick={() => navigate("/pengaturan")}
-            />
+              />
             <SidebarItem
               icon={<LogOut size={20} />}
               text="Logout"

@@ -4,25 +4,20 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
 const MainLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+    setSidebarOpen((prev) => !prev);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Topbar toggleSidebar={toggleSidebar} />
-      <div className="flex flex-1">
-        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-        <main
-          className={`w-full transition-all duration-300 ease-in-out ${
-            sidebarOpen ? "ml-64" : "ml-16"
-          }`}
-        >
-          <div className="p-6">
-            <Outlet />
-          </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar sidebarOpen={sidebarOpen} />
+
+      <div className="flex-1 flex flex-col">
+        <Topbar toggleSidebar={toggleSidebar} />{" "}
+        <main className="flex-1 p-4 overflow-y-auto">
+          <Outlet />
         </main>
       </div>
     </div>

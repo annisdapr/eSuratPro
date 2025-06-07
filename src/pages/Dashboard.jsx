@@ -1,77 +1,73 @@
-import React from "react";
-import HeaderToolbar from "../components/HeaderToolbar";
-
-const documents = [
-  {
-    id: 1,
-    title: "SKM Aktif 2210511164",
-    date: "May 05, 2025 18:26",
-    status: "Draf",
-    statusColor: "bg-yellow-400",
-  },
-  {
-    id: 2,
-    title: "SR Beasiswa 2210511108",
-    date: "May 04, 2025 09.00",
-    status: "Ditolak",
-    statusColor: "bg-red-300",
-  },
-  {
-    id: 3,
-    title: "SR Magang 2110511101",
-    date: "May 02, 2025 13.02",
-    status: "Selesai",
-    statusColor: "bg-green-300",
-  },
-  {
-    id: 4,
-    title: "SR Magang 2210511179",
-    date: "May 02, 2025 13.02",
-    status: "Tertunda",
-    statusColor: "bg-yellow-200",
-  },
-];
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DashboardSidebar from "../components/DashboardSidebar";
+import { FileText } from "lucide-react"; 
 
 const Dashboard = () => {
-  return (
-    <div className="flex h-screen">
-      <main className="flex-1 p-6 bg-gray-50 overflow-auto">
-        <HeaderToolbar title="Seluruh Dokumen" />
+  const [documents, setDocuments] = useState([]);
+  const navigate = useNavigate();
 
-        <div className="bg-white rounded-lg shadow-sm overflow-x-auto">
+  useEffect(() => {
+    const savedDocsJSON = localStorage.getItem("mySuratDocuments");
+    if (savedDocsJSON) {
+      setDocuments(JSON.parse(savedDocsJSON));
+    }
+  }, []);
+
+  return (
+    <div className="flex h-full bg-white rounded-xl shadow-md">
+      <DashboardSidebar />
+      <main className="flex-1 p-6 overflow-auto">
+        <div className="overflow-x-auto">
           <table className="min-w-full table-auto text-sm">
             <thead className="border-b text-gray-600">
               <tr>
-                <th className="px-4 py-2 text-left">Seluruh Dokumen</th>
-                <th className="px-4 py-2 text-left">Tanggal Unggah</th>
-                <th className="px-4 py-2 text-left">Status</th>
-                <th className="px-4 py-2 text-left"></th>
+                <th className="px-4 py-3 text-left font-semibold">
+                  Dokumen Tersimpan (MySurat)
+                </th>
+                <th className="px-4 py-3 text-left font-semibold">
+                  Tanggal Disimpan
+                </th>
+                <th className="px-4 py-3 text-left font-semibold">Status</th>
+                <th className="px-4 py-3 text-left"></th>
               </tr>
             </thead>
             <tbody>
-              {documents.map((doc) => (
-                <tr key={doc.id} className="border-b">
-                  <td className="px-4 py-3 flex items-center space-x-2">
-                    <img
-                      src="https://i.pravatar.cc/40?img=1"
-                      alt="avatar"
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <span>{doc.title}</span>
-                  </td>
-                  <td className="px-4 py-3">{doc.date}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`text-xs text-black font-medium px-3 py-1 rounded-full ${doc.statusColor}`}
-                    >
-                      {doc.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <i className="fas fa-ellipsis-h text-gray-500"></i>
+              {documents.length > 0 ? (
+                documents.map((doc) => (
+                  <tr
+                    key={doc.id}
+                    className="border-b hover:bg-gray-100 cursor-pointer"
+                    onClick={() => navigate(`/document/${doc.id}`)}
+                  >
+                    <td className="px-4 py-3 flex items-center space-x-3">
+                      <div className="p-2 bg-gray-100 rounded-md">
+                        <FileText size={20} className="text-gray-500" />
+                      </div>
+                      <span className="font-medium text-gray-800">
+                        {doc.title}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-gray-600">{doc.date}</td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`text-xs font-semibold px-3 py-1 rounded-full ${doc.statusColor}`}
+                      >
+                        {doc.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <i className="fas fa-ellipsis-h text-gray-500 cursor-pointer"></i>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center py-10 text-gray-500">
+                    Belum ada dokumen yang disimpan di MySurat.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

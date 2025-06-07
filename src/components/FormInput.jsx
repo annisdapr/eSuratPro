@@ -1,6 +1,14 @@
 import React from "react";
 
-const FormInput = ({ label, name, type = "text", placeholder }) => {
+// ✅ Tambahkan props `value` dan `onChange`
+const FormInput = ({
+  label,
+  name,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+}) => {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center mb-4">
       <label
@@ -17,6 +25,8 @@ const FormInput = ({ label, name, type = "text", placeholder }) => {
           placeholder={placeholder || `Masukkan ${label}...`}
           className="flex-1 w-full border-b border-gray-400 outline-none focus:border-blue-500 transition px-2 py-1"
           required
+          value={value} // ✅ Tampilkan value dari state
+          onChange={onChange} // ✅ Panggil fungsi saat ada perubahan
         />
       </div>
     </div>

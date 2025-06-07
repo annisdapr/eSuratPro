@@ -1,12 +1,12 @@
 import React from "react";
 import { FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import HeaderToolbar from "../components/HeaderToolbar"; 
+import HeaderToolbar from "../components/HeaderToolbar";
 const suratTypes = [
   { title: "SR Beasiswa", route: "/form-beasiswa" },
-  { title: "SR Magang", route: "/form-magang" },
-  { title: "SKM Aktif", route: "/form-skm-aktif" },
-  { title: "SK Tidak Menerima Beasiswa Lain", route: "/form-sktmb" },
+  // { title: "SR Magang", route: "/form-magang" },
+  // { title: "SKM Aktif", route: "/form-skm-aktif" },
+  // { title: "SK Tidak Menerima Beasiswa Lain", route: "/form-sktmb" },
 ];
 
 const BuatSuratPage = () => {
