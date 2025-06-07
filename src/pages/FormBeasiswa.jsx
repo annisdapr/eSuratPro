@@ -1,61 +1,42 @@
-// src/pages/FormBeasiswa.jsx
-
 import React from "react";
+import FormInput from "../components/FormInput";
 
 const FormBeasiswa = () => {
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <h2 className="text-xl font-semibold mb-6">
-        Formulir Pengajuan Surat Rekomendasi Beasiswa
-      </h2>
+    <div className="bg-white p-8 rounded-xl shadow-md">
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-800">
+          Formulir Pengajuan Surat Rekomendasi Beasiswa
+        </h2>
+        <p className="text-gray-500">Pastikan semua data diisi dengan benar.</p>
+      </div>
 
-      <div className="bg-gray-100 rounded px-4 py-2 mb-6 text-sm font-semibold">
+      <div className="bg-gray-100 rounded px-4 py-2 mb-6 text-sm font-semibold text-gray-700">
         Data Pemohon
       </div>
 
-      <form className="space-y-4 w-full max-w-lg">
-        <div className="flex items-center">
-          <label className="w-40">Nama</label>
-          <span className="mr-2">:</span>
-          <input
-            type="text"
-            className="flex-1 border-b border-black outline-none"
-          />
-        </div>
+      <form className="w-full max-w-2xl mx-auto">
+        <FormInput label="Nama Lengkap" name="nama" />
+        <FormInput label="NIM" name="nim" />
+        <FormInput
+          label="Tempat, Tanggal Lahir"
+          name="ttl"
+          placeholder="Contoh: Jakarta, 17 Agustus 2002"
+        />
+        <FormInput label="Program Studi" name="prodi" />
 
-        <div className="flex items-center">
-          <label className="w-40">NIM</label>
-          <span className="mr-2">:</span>
-          <input
-            type="text"
-            className="flex-1 border-b border-black outline-none"
-          />
-        </div>
-
-        <div className="flex items-center">
-          <label className="w-40">Tempat, Tanggal Lahir</label>
-          <span className="mr-2">:</span>
-          <input
-            type="text"
-            className="flex-1 border-b border-black outline-none"
-          />
-        </div>
-
-        <div className="flex items-center">
-          <label className="w-40">Program Studi</label>
-          <span className="mr-2">:</span>
-          <input
-            type="text"
-            className="flex-1 border-b border-black outline-none"
-          />
-        </div>
-
-        <div className="flex justify-center pt-6">
+        <div className="flex justify-end pt-8">
+          <button
+            type="button"
+            className="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 mr-4"
+          >
+            Batal
+          </button>
           <button
             type="submit"
-            className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
           >
-            Submit
+            Ajukan Surat
           </button>
         </div>
       </form>
