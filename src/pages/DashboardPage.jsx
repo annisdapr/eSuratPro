@@ -1,83 +1,81 @@
 import React from 'react';
-import HeaderToolbar from './HeaderToolbar';
+import { Search, Filter, Plus, MoreHorizontal } from 'lucide-react';
 
 const documents = [
   {
-    id: 1,
-    title: 'SKM Aktif 2210511164',
+    id: 'SKM Aktif 2210511164',
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
     date: 'May 05, 2025 18:26',
     status: 'Draf',
-    statusColor: 'bg-yellow-400',
   },
   {
-    id: 2,
-    title: 'SR Beasiswa 2210511108',
-    date: 'May 04, 2025 09.00',
+    id: 'SR Beasiswa 2210511108',
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026705d',
+    date: 'May 04, 2025 09:00',
     status: 'Ditolak',
-    statusColor: 'bg-red-300',
   },
   {
-    id: 3,
-    title: 'SR Magang 2110511101',
-    date: 'May 02, 2025 13.02',
+    id: 'SR Magang 2110511101',
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026706d',
+    date: 'May 02, 2025 13:02',
     status: 'Selesai',
-    statusColor: 'bg-green-300',
   },
   {
-    id: 4,
-    title: 'SR Magang 2210511179',
-    date: 'May 02, 2025 13.02',
+    id: 'SR Magang 2210511179',
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026707d',
+    date: 'May 02, 2025 13:02',
     status: 'Tertunda',
-    statusColor: 'bg-yellow-200',
   },
 ];
 
-const Dashboard = () => {
-  return (
-    <div className="flex h-screen">
-      <main className="flex-1 p-6 bg-gray-50 overflow-auto">
-        <HeaderToolbar title="Seluruh Dokumen" />
+const statusStyles = {
+  Draf: 'bg-yellow-100 text-yellow-800',
+  Ditolak: 'bg-red-100 text-red-800',
+  Selesai: 'bg-green-100 text-green-800',
+  Tertunda: 'bg-orange-100 text-orange-800',
+};
 
-        <div className="bg-white rounded-lg shadow-sm overflow-x-auto">
-          <table className="min-w-full table-auto text-sm">
-            <thead className="border-b text-gray-600">
-              <tr>
-                <th className="px-4 py-2 text-left">Seluruh Dokumen</th>
-                <th className="px-4 py-2 text-left">Tanggal Unggah</th>
-                <th className="px-4 py-2 text-left">Status</th>
-                <th className="px-4 py-2 text-left"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {documents.map((doc) => (
-                <tr key={doc.id} className="border-b">
-                  <td className="px-4 py-3 flex items-center space-x-2">
-                    <img
-                      src="https://i.pravatar.cc/40?img=1"
-                      alt="avatar"
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <span>{doc.title}</span>
-                  </td>
-                  <td className="px-4 py-3">{doc.date}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`text-xs text-black font-medium px-3 py-1 rounded-full ${doc.statusColor}`}
-                    >
-                      {doc.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <i className="fas fa-ellipsis-h text-gray-500"></i>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+const DashboardPage = () => {
+  return (
+    <div className="bg-white rounded-lg shadow-sm">
+        {/* Header Tabel */}
+        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200 text-sm font-medium text-gray-500">
+          <div className="w-2/5">Seluruh Dokumen</div>
+          <div className="w-1/4 text-left">Tanggal Unggah</div>
+          <div className="w-1/4 text-left">Status</div>
+          <div className="w-auto"></div>
         </div>
-      </main>
-    </div>
+
+        {/* Isi Tabel */}
+        <div>
+          {documents.map((doc, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center px-6 py-4 border-b border-gray-200 hover:bg-gray-50 last:border-b-0"
+            >
+              <div className="w-2/5 flex items-center">
+                <img src={doc.avatar} alt="User Avatar" className="w-8 h-8 rounded-full mr-4" />
+                <span className="font-medium text-gray-800">{doc.id}</span>
+              </div>
+              <div className="w-1/4 text-gray-600">{doc.date}</div>
+              <div className="w-1/4">
+                <span
+                  className={`px-3 py-1 text-xs font-semibold rounded-full ${statusStyles[doc.status]}`}
+                >
+                  {doc.status}
+                </span>
+              </div>
+              <div className="w-auto">
+                <button className="text-gray-400 hover:text-gray-600">
+                  <MoreHorizontal />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

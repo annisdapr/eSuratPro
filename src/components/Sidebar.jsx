@@ -1,66 +1,156 @@
-import { Home, FileText, Settings, LogOut, Menu, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+// Lokasi: src/components/Sidebar.jsx
 
-const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
+import { useState } from "react";
+import {
+  Home,
+  FileText,
+  Settings,
+  LogOut,
+  User,
+  Shield,
+  ChevronDown,
+} from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+const Sidebar = ({ sidebarOpen }) => {
   const navigate = useNavigate();
+  const location = useLocation(); // Hook untuk mendapatkan path URL saat ini
+
+  // State untuk mengontrol visibilitas submenu
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  // Fungsi untuk mengecek apakah sebuah link sedang aktif
+  const isActive = (path) => location.pathname === path;
+
+  // Daftar item menu utama
+  const menuItems = [
+    { name: "Dashboard", icon: <Home size={22} />, route: "/" },
+    { name: "Buat Surat", icon: <FileText size={22} />, route: "/buat-surat" },
+  ];
+
+  // Daftar item submenu pengaturan
+  const settingsSubItems = [
+    { name: "Profil", icon: <User size={20} />, route: "/pengaturan/profil" },
+    {
+      name: "Keamanan",
+      icon: <Shield size={20} />,
+      route: "/pengaturan/keamanan",
+    },
+  ];
 
   return (
     <div
-      className={`fixed top-0 left-0 h-screen bg-gray-200 z-20 pt-16
+      className={`bg-white border-r border-gray-200 h-screen flex flex-col justify-between pt-4
         transition-all duration-300 ease-in-out
-        ${sidebarOpen ? 'w-64' : 'w-16'}
-        overflow-hidden
+        ${sidebarOpen ? "w-64" : "w-20"} 
       `}
     >
-      {/* Header: Logo & Toggle Button */}
-      <div className="absolute top-0 left-0 flex items-center justify-between w-full px-4 py-3 bg-gray-300 z-30">
-        <div className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
-            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+      <div>
+        {/* Header Logo */}
+        <div className="flex items-center justify-center h-16 border-b border-gray-200">
+          <div className="flex items-center space-x-3">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="w-10 h-10 object-contain"
+            />
+            {sidebarOpen && (
+              <h1 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                E-Surat
+              </h1>
+            )}
           </div>
-          {sidebarOpen && (
-            <h1 className="text-lg font-semibold text-gray-800 whitespace-nowrap">E-SuratPro</h1>
-          )}
         </div>
-        <button onClick={toggleSidebar}>
-          {sidebarOpen ? <ArrowLeft size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
 
-      {/* Menu Items */}
-      <div className="flex flex-col flex-1 px-2 py-6 space-y-8 mt-14">
-        <div
-          className="flex items-center space-x-4 cursor-pointer hover:text-blue-600 px-2"
-          onClick={() => navigate('/')}
-        >
-          <Home size={20} />
-          {sidebarOpen && <span className="text-base font-medium">Dashboard</span>}
-        </div>
-        <div
-          className="flex items-center space-x-4 cursor-pointer hover:text-blue-600 px-2"
-          onClick={() => navigate('/buat-surat')}
-        >
-          <FileText size={20} />
-          {sidebarOpen && <span className="text-base font-medium">Buat Surat</span>}
-        </div>
-        <div
-          className="flex items-center space-x-4 cursor-pointer hover:text-blue-600 px-2"
-          onClick={() => navigate('/pengaturan')}
-        >
-          <Settings size={20} />
-          {sidebarOpen && <span className="text-base font-medium">Pengaturan</span>}
-        </div>
+        {/* Menu Items */}
+        <nav className="mt-6">
+          <ul className="space-y-1 px-2">
+            {/* Menu Utama */}
+            {menuItems.map((item) => (
+              <li key={item.name}>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(item.route);
+                  }}
+                  className={`flex items-center py-2.5 px-4 rounded-lg transition-colors
+                    ${
+                      isActive(item.route)
+                        ? "bg-gray-200 text-gray-900 font-semibold"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }
+                  `}
+                >
+                  {item.icon}
+                  {sidebarOpen && <span className="ml-4">{item.name}</span>}
+                </a>
+              </li>
+            ))}
+
+            {/* Menu Pengaturan dengan Submenu */}
+            <li>
+              <button
+                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                className={`w-full flex items-center justify-between py-2.5 px-4 rounded-lg transition-colors text-gray-600 hover:bg-gray-100`}
+              >
+                <div className="flex items-center">
+                  <Settings size={22} />
+                  {sidebarOpen && <span className="ml-4">Pengaturan</span>}
+                </div>
+                {sidebarOpen && (
+                  <ChevronDown
+                    size={20}
+                    className={`transition-transform ${
+                      isSettingsOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                )}
+              </button>
+
+              {/* Daftar Submenu */}
+              {isSettingsOpen && sidebarOpen && (
+                <ul className="mt-1 pl-8 space-y-1">
+                  {settingsSubItems.map((subItem) => (
+                    <li key={subItem.name}>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(subItem.route);
+                        }}
+                        className={`flex items-center py-2 px-4 rounded-lg text-sm
+                                ${
+                                  isActive(subItem.route)
+                                    ? "text-gray-900 font-semibold"
+                                    : "text-gray-500 hover:text-gray-900"
+                                }`}
+                      >
+                        {subItem.icon}
+                        <span className="ml-3">{subItem.name}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          </ul>
+        </nav>
       </div>
 
       {/* Logout */}
-      <div className="px-6 py-6 border-t border-gray-300">
-        <div
-          className="flex items-center space-x-4 cursor-pointer hover:text-red-600 px-2"
-          onClick={() => navigate('/logout')}
+      <div className="px-2 pb-2">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/logout");
+          }}
+          className="flex items-center py-2.5 px-4 rounded-lg text-gray-600 hover:bg-gray-100 border-t border-gray-200 mt-4"
         >
-          <LogOut size={20} />
-          {sidebarOpen && <span className="text-base font-medium">Keluar</span>}
-        </div>
+          <LogOut size={22} />
+          {sidebarOpen && <span className="ml-4">Keluar</span>}
+        </a>
       </div>
     </div>
   );
