@@ -1,34 +1,34 @@
-import React from 'react';
-import HeaderToolbar from './HeaderToolbar';
+import React from "react";
+import HeaderToolbar from "../components/HeaderToolbar";
 
 const documents = [
   {
     id: 1,
-    title: 'SKM Aktif 2210511164',
-    date: 'May 05, 2025 18:26',
-    status: 'Draf',
-    statusColor: 'bg-yellow-400',
+    title: "SKM Aktif 2210511164",
+    date: "May 05, 2025 18:26",
+    status: "Draf",
+    statusColor: "bg-yellow-400",
   },
   {
     id: 2,
-    title: 'SR Beasiswa 2210511108',
-    date: 'May 04, 2025 09.00',
-    status: 'Ditolak',
-    statusColor: 'bg-red-300',
+    title: "SR Beasiswa 2210511108",
+    date: "May 04, 2025 09.00",
+    status: "Ditolak",
+    statusColor: "bg-red-300",
   },
   {
     id: 3,
-    title: 'SR Magang 2110511101',
-    date: 'May 02, 2025 13.02',
-    status: 'Selesai',
-    statusColor: 'bg-green-300',
+    title: "SR Magang 2110511101",
+    date: "May 02, 2025 13.02",
+    status: "Selesai",
+    statusColor: "bg-green-300",
   },
   {
     id: 4,
-    title: 'SR Magang 2210511179',
-    date: 'May 02, 2025 13.02',
-    status: 'Tertunda',
-    statusColor: 'bg-yellow-200',
+    title: "SR Magang 2210511179",
+    date: "May 02, 2025 13.02",
+    status: "Tertunda",
+    statusColor: "bg-yellow-200",
   },
 ];
 
